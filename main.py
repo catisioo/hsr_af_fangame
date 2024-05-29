@@ -1,5 +1,15 @@
 import pygame
+import character_list, mechanics
+
 pygame.init()
-while True:
-    win = pygame.display.set_mode((1600, 900))
-    pygame.display.set_caption("HSR Fangame")
+
+screen = pygame.display.set_mode()
+x, y = screen.get_size()
+pygame.display.set_mode((x, y)) 
+
+isGameRunning = True
+
+while isGameRunning:
+    for event in pygame.event.get():  
+        if event.type == pygame.QUIT:  
+           isGameRunning = False
