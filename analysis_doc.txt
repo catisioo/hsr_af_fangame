@@ -1,0 +1,18 @@
+			Honkai Star Rail gameplay analysis
+Base Stats:
+	HP	4000
+	ATK	3000
+	DEF	2000
+	SPD	130
+	CR	75%
+	CDMG	170%
+
+Other stats:
+	Break Effect	50%
+	Healing Boost	50%
+	Burst Cost	100
+	ER Rate		130%
+	Effect Hit Rate	0%
+	Effect RES	0%
+	
+	
