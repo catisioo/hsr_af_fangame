@@ -2,8 +2,7 @@ from default_stats import *
 from enemy_list import *
 import random
 
-# enemy initialisation
-enemy = voidranger_trampler_lvl95()
+
 
 # skill point mechanic
 skillPoints = 3
@@ -26,13 +25,13 @@ class Character:
         self.max_er = max_er
         self.curr_energy = 0
     
-    def basic_attack(self, enemy, multiplier=0.9):
+    def basic_attack(self, enemy):
         
         broken_multiplier = 1 if enemy.toughness == 0 else 0.9
         enemy_def_multiplier = (100)/((enemy.level+20)*(1-enemy.defense_reduction)+100)
 
         # non crit damage number
-        actual_damage = self.atk * multiplier * enemy_def_multiplier * broken_multiplier
+        actual_damage = self.atk * 0.9 * enemy_def_multiplier * broken_multiplier
         
         # crit check, if crit multiplies by cd
         crit = random.random() < self.cr
@@ -68,13 +67,24 @@ class Character:
     def __str__(self):
         return f"ATK: {self.atk}\nHP: {self.hp}/{HP}\nEnergy: {self.curr_energy}/{self.max_er}"
 
-# enemy class
+# enemy and player initialisation
+enemy = voidranger_trampler_lvl95()
 pathless_char = Character()
+
+print("beginning stats:\n")
+print(pathless_char)
+print(enemy)
+print(skillPoints)
+
+print("character does basic attack:\n")
 
 pathless_char.basic_attack(enemy)
 print(pathless_char)
+print(enemy)
 print(skillPoints)
 
-#enemy.take_damage(607)
+print("character takes damage:\n")
+pathless_char.take_damage(enemy.attack())
+print(pathless_char)
 
 
