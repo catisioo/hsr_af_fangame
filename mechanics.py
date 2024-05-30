@@ -29,7 +29,7 @@ class Character:
     def basic_attack(self, enemy, multiplier=0.9):
         
         broken_multiplier = 1 if enemy.toughness == 0 else 0.9
-        enemy_def_multiplier = 1-(enemy.defen/(enemy.defen+200+10*enemy.level))
+        enemy_def_multiplier = (100)/((enemy.level+20)*(1-enemy.defense_reduction)+100)
 
         # non crit damage number
         actual_damage = self.atk * multiplier * enemy_def_multiplier * broken_multiplier
@@ -74,5 +74,7 @@ pathless_char = Character()
 pathless_char.basic_attack(enemy)
 print(pathless_char)
 print(skillPoints)
+
+#enemy.take_damage(607)
 
 
