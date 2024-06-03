@@ -11,7 +11,10 @@ MAX_SP = 5
 def changeSkillPoints(change):
     global skillPoints
     skillPoints += change
-    skillPoints = min(skillPoints, MAX_SP)
+    if change > 1:
+        skillPoints = min(skillPoints, MAX_SP)
+    else:
+        skillPoints = max(0, skillPoints)
 
 # playable character class
 class Character:
@@ -27,7 +30,7 @@ class Character:
     
     def basic_attack(self, enemy):
         
-        broken_multiplier = 1 if enemy.toughness == 0 else 0.9
+        broken_multiplier = enemy.calculate_toughness_multipilier()
         enemy_def_multiplier = (100)/((enemy.level+20)*(1-enemy.defense_reduction)+100)
 
         # non crit damage number
@@ -63,14 +66,13 @@ class Character:
         print("Player takes {} damage. HP: {}".format(damage_taken, self.hp))
         return max(self.hp, 1)
         
-    
     def __str__(self):
         return f"ATK: {self.atk}\nHP: {self.hp}/{HP}\nEnergy: {self.curr_energy}/{self.max_er}"
 
 # enemy and player initialisation
 enemy = voidranger_trampler_lvl95()
 pathless_char = Character()
-
+'''
 print("beginning stats:\n")
 print(pathless_char)
 print(enemy)
@@ -86,5 +88,10 @@ print(skillPoints)
 print("character takes damage:\n")
 pathless_char.take_damage(enemy.attack())
 print(pathless_char)
+'''
+print(enemy)
+enemy.takeDOT(pathless_char, 2)
+print(enemy)
 
-
+pathless_char.basic_attack(enemy)
+print(enemy)
