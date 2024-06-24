@@ -1,15 +1,38 @@
 import pygame
-import character_list, mechanics
+import pygame_menu
+from pygame_menu import Theme
 
+# Initialize Pygame
 pygame.init()
+screen = pygame.display.set_mode((1200, 600))
 
-screen = pygame.display.set_mode()
-x, y = screen.get_size()
-pygame.display.set_mode((x, y)) 
+# Create a custom theme
+mytheme = Theme(
+    background_color=(0, 0, 0, 0),  # transparent background
+    title_background_color=(4, 47, 126),
+    title_font_shadow=True,
+    widget_padding=25,
+)
 
-isGameRunning = True
+# Create a menu with the custom theme
+menu = pygame_menu.Menu(
+    title='My Menu',
+    width=1200,
+    height=600,
+    theme=mytheme
+)
 
-while isGameRunning:
-    for event in pygame.event.get():  
-        if event.type == pygame.QUIT:  
-           isGameRunning = False
+# Main loop
+running = True
+while running:
+    screen.fill((0, 0, 0))
+    events = pygame.event.get()
+    for event in events:
+        if event.type == pygame.QUIT:
+            running = False
+    
+    menu.update(events)
+    menu.draw(screen)
+    pygame.display.flip()
+
+pygame.quit()

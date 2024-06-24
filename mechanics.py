@@ -18,7 +18,7 @@ def changeSkillPoints(change):
 
 # playable character class
 class Character:
-    def __init__(self, atk=ATK, max_hp=HP, defen=DEF, cr=CRIT_RATE, cd=CRIT_DAMAGE, max_er = MAX_ENERGY):
+    def __init__(self, atk=ATK, max_hp=HP, defen=DEF, cr=CRIT_RATE, cd=CRIT_DAMAGE, max_er = MAX_ENERGY, break_effect = BREAK_EFFECT):
         self.atk = atk
         self.max_hp = max_hp
         self.hp = max_hp
@@ -27,14 +27,18 @@ class Character:
         self.cd = cd
         self.max_er = max_er
         self.curr_energy = 0
+        self.break_effect = break_effect
     
+    def break_effect_multiplier(self):
+        return 1 + (self.break_effect/100)
+
     def basic_attack(self, enemy):
         
         broken_multiplier = enemy.calculate_toughness_multipilier()
         enemy_def_multiplier = (100)/((enemy.level+20)*(1-enemy.defense_reduction)+100)
 
         # non crit damage number
-        actual_damage = self.atk * 0.9 * enemy_def_multiplier * broken_multiplier
+        actual_damage = self.atk * 1 * enemy_def_multiplier * broken_multiplier
         
         # crit check, if crit multiplies by cd
         crit = random.random() < self.cr
@@ -89,9 +93,12 @@ print("character takes damage:\n")
 pathless_char.take_damage(enemy.attack())
 print(pathless_char)
 '''
+print(pathless_char)
 print(enemy)
-enemy.takeDOT(pathless_char, 2)
-print(enemy)
-
 pathless_char.basic_attack(enemy)
 print(enemy)
+enemy.takeBrokenDmg(pathless_char)
+print(enemy)
+
+#pathless_char.basic_attack(enemy)
+#print(enemy)

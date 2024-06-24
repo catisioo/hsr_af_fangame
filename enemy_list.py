@@ -37,6 +37,10 @@ class voidranger_trampler_lvl95:
 
     def takeBrokenDmg(self, target):
         enemy_def_multiplier = self.calculate_def_multiplier()
+        actual_damage = target.atk * target.break_effect_multiplier() * enemy_def_multiplier
+        self.hp -= actual_damage
+        print("Enemy takes {} break effect.".format(actual_damage))
+        return actual_damage
 
 
 
